@@ -12,7 +12,7 @@
 // `mongoose`. Store your **mLab** database URI in the private `.env` file 
 // as `MONGO_URI`. Connect to the database using `mongoose.connect(<Your URI>)`
 const mongoose = require('mongoose');
-mongoose.connect('URI');
+mongoose.connect(URI);
 
 /** # SCHEMAS and MODELS #
 /*  ====================== */
@@ -277,13 +277,15 @@ var removeManyPeople = function(done) {
 // Chain `.find()`, `.sort()`, `.limit()`, `.select()`, and then `.exec()`,
 // passing the `done(err, data)` callback to it.
 
-Person.find({ age: 55 })
-  .sort({ name: -1 })
-  .limit(5)
-  .select({ favoriteFoods: 0 })
-  .exec(function(error, people) {
-    //do something here
-  });
+var queryChain = function(done) {
+  var foodToSearch = "burrito";
+  Person.find({favoriteFoods:foodToSearch}).sort({name : "asc"}).limit(2).select("-age").exec((err, data) => {
+     if(err)
+       done(err);
+    done(null, data);
+  })
+};
+
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
  */
