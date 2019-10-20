@@ -17,7 +17,6 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-
 // API endpoint
 app.get("/api/timestamp/:date_string?", function (req, res) {
   
